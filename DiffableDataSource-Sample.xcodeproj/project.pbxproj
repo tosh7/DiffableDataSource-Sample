@@ -40,9 +40,17 @@
 		19358239275CB4FA0054DA5E /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				19A3D992275CABCF007DBD4A /* TableViewController.swift */,
+				1935823A275CB8750054DA5E /* TableView */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		1935823A275CB8750054DA5E /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				19A3D992275CABCF007DBD4A /* TableViewController.swift */,
+			);
+			path = TableView;
 			sourceTree = "<group>";
 		};
 		19A3D982275CABCF007DBD4A = {
