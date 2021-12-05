@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19358238275CB3F90054DA5E /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 19358237275CB3F90054DA5E /* SnapKit */; };
 		19A3D98F275CABCF007DBD4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A3D98E275CABCF007DBD4A /* AppDelegate.swift */; };
 		19A3D991275CABCF007DBD4A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A3D990275CABCF007DBD4A /* SceneDelegate.swift */; };
-		19A3D993275CABCF007DBD4A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A3D992275CABCF007DBD4A /* ViewController.swift */; };
+		19A3D993275CABCF007DBD4A /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A3D992275CABCF007DBD4A /* TableViewController.swift */; };
 		19A3D998275CABD0007DBD4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19A3D997275CABD0007DBD4A /* Assets.xcassets */; };
 		19A3D99B275CABD0007DBD4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19A3D999275CABD0007DBD4A /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -18,7 +19,7 @@
 		19A3D98B275CABCF007DBD4A /* DiffableDataSource-Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DiffableDataSource-Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		19A3D98E275CABCF007DBD4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		19A3D990275CABCF007DBD4A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		19A3D992275CABCF007DBD4A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		19A3D992275CABCF007DBD4A /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		19A3D997275CABD0007DBD4A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		19A3D99A275CABD0007DBD4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		19A3D99C275CABD0007DBD4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -29,12 +30,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19358238275CB3F90054DA5E /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		19358239275CB4FA0054DA5E /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				19A3D992275CABCF007DBD4A /* TableViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		19A3D982275CABCF007DBD4A = {
 			isa = PBXGroup;
 			children = (
@@ -54,12 +64,12 @@
 		19A3D98D275CABCF007DBD4A /* DiffableDataSource-Sample */ = {
 			isa = PBXGroup;
 			children = (
-				19A3D98E275CABCF007DBD4A /* AppDelegate.swift */,
-				19A3D990275CABCF007DBD4A /* SceneDelegate.swift */,
-				19A3D992275CABCF007DBD4A /* ViewController.swift */,
 				19A3D997275CABD0007DBD4A /* Assets.xcassets */,
 				19A3D999275CABD0007DBD4A /* LaunchScreen.storyboard */,
 				19A3D99C275CABD0007DBD4A /* Info.plist */,
+				19A3D98E275CABCF007DBD4A /* AppDelegate.swift */,
+				19A3D990275CABCF007DBD4A /* SceneDelegate.swift */,
+				19358239275CB4FA0054DA5E /* ViewControllers */,
 			);
 			path = "DiffableDataSource-Sample";
 			sourceTree = "<group>";
@@ -80,6 +90,9 @@
 			dependencies = (
 			);
 			name = "DiffableDataSource-Sample";
+			packageProductDependencies = (
+				19358237275CB3F90054DA5E /* SnapKit */,
+			);
 			productName = "DiffableDataSource-Sample";
 			productReference = 19A3D98B275CABCF007DBD4A /* DiffableDataSource-Sample.app */;
 			productType = "com.apple.product-type.application";
@@ -108,6 +121,9 @@
 				Base,
 			);
 			mainGroup = 19A3D982275CABCF007DBD4A;
+			packageReferences = (
+				19358236275CB3F90054DA5E /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 19A3D98C275CABCF007DBD4A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -134,7 +150,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				19A3D993275CABCF007DBD4A /* ViewController.swift in Sources */,
+				19A3D993275CABCF007DBD4A /* TableViewController.swift in Sources */,
 				19A3D98F275CABCF007DBD4A /* AppDelegate.swift in Sources */,
 				19A3D991275CABCF007DBD4A /* SceneDelegate.swift in Sources */,
 			);
@@ -346,6 +362,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		19358236275CB3F90054DA5E /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		19358237275CB3F90054DA5E /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 19358236275CB3F90054DA5E /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 19A3D983275CABCF007DBD4A /* Project object */;
 }
