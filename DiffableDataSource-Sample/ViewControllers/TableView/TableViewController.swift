@@ -8,13 +8,19 @@ final class TableViewController: UIViewController {
     }
 
     struct Item: Hashable {
-        
+        private let identifier = UUID()
+        var name: String
+
+        static func == (lhs: TableViewController.Item, rhs: TableViewController.Item) -> Bool {
+            lhs.identifier == rhs.identifier
+        }
     }
 
     init() {
         super.init(nibName: nil, bundle: nil)
 
-        configure()
+        configureDataSource()
+        updateUI()
 
         view.addSubview(tableView)
 
@@ -30,16 +36,33 @@ final class TableViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let view = UITableView()
         view.delegate = self
+        view.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         return view
     }()
+}
 
-    private func configure() {
+// MARK: DataSource
+extension TableViewController {
+    private func configureDataSource() {
         dataSource = .init(tableView: tableView,
                            cellProvider: { tableView, indexPath, itemIdentifier in
-            let cell = UITableViewCell()
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+            cell.textLabel?.text = itemIdentifier.name
             return cell
         })
     }
+
+    private func updateUI() {
+        var snapShot = NSDiffableDataSourceSnapshot<Section, Item>()
+        snapShot.appendSections([.main])
+        snapShot.appendItems([
+            Item(name: "Joy"),
+            Item(name: "Winter"),
+            Item(name: "Keita")
+        ], toSection: .main)
+        dataSource.apply(snapShot, animatingDifferences: true)
+    }
 }
 
+// MARK: Delegate
 extension TableViewController: UITableViewDelegate {}
