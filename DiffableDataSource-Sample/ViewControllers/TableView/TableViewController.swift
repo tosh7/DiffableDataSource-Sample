@@ -29,10 +29,11 @@ final class TableViewController: UIViewController {
         }
     }
 
-    private var sections: [Section] = []
+    private let sections: [Section] =  [.tableView, .collectionView, .collectionViewList]
 
     init() {
         super.init(nibName: nil, bundle: nil)
+        navigationItem.title = "UITableViewController"
 
         configureDataSource()
         updateUI()
@@ -54,6 +55,22 @@ final class TableViewController: UIViewController {
         view.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         return view
     }()
+
+    @objc private func appendItems() {
+        var snapShot = NSDiffableDataSourceSnapshot<Section, Item>()
+        snapShot.appendSections(sections)
+        snapShot.appendItems([
+            Item(name: "nomarl"),
+            Item(name: "abnomal"),
+            Item(name: "cdnomal")
+        ], toSection: .tableView)
+        snapShot.appendItems([
+            Item(name: "nomarl"),
+            Item(name: "abnomal"),
+            Item(name: "cdnomal")
+        ], toSection: .collectionView)
+        dataSource.apply(snapShot, animatingDifferences: true)
+    }
 }
 
 // MARK: DataSource
@@ -69,7 +86,6 @@ extension TableViewController {
 
     private func updateUI() {
         var snapShot = NSDiffableDataSourceSnapshot<Section, Item>()
-        sections = [.tableView, .collectionView, .collectionViewList]
         snapShot.appendSections(sections)
         snapShot.appendItems([
             Item(name: "nomarl"),
@@ -96,6 +112,7 @@ extension TableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
         view.backgroundColor = .white
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(appendItems)))
         let label = UILabel()
         label.text = sections[section].headerTitle
         view.addSubview(label)
