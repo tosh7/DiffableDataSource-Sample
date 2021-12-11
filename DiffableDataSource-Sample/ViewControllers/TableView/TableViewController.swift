@@ -4,7 +4,20 @@ import SnapKit
 final class TableViewController: UIViewController {
 
     enum Section: Hashable {
-        case main
+        case tableView
+        case collectionView
+        case collectionViewList
+
+        var headerTitle: String {
+            switch self {
+            case .tableView:
+                return "UITableView"
+            case .collectionView:
+                return "UICollectionView"
+            case .collectionViewList:
+                return "UICollectionViewList"
+            }
+        }
     }
 
     struct Item: Hashable {
@@ -15,6 +28,8 @@ final class TableViewController: UIViewController {
             lhs.identifier == rhs.identifier
         }
     }
+
+    private var sections: [Section] = []
 
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -54,15 +69,41 @@ extension TableViewController {
 
     private func updateUI() {
         var snapShot = NSDiffableDataSourceSnapshot<Section, Item>()
-        snapShot.appendSections([.main])
+        sections = [.tableView, .collectionView, .collectionViewList]
+        snapShot.appendSections(sections)
         snapShot.appendItems([
-            Item(name: "Joy"),
-            Item(name: "Winter"),
-            Item(name: "Keita")
-        ], toSection: .main)
+            Item(name: "nomarl"),
+            Item(name: "abnomal"),
+            Item(name: "cdnomal")
+        ], toSection: .tableView)
+        snapShot.appendItems([
+            Item(name: "nomarl"),
+            Item(name: "abnomal"),
+            Item(name: "cdnomal")
+        ], toSection: .collectionView)
+        snapShot.appendItems([
+            Item(name: "nomarl"),
+            Item(name: "abnomal"),
+            Item(name: "cdnomal")
+        ], toSection: .collectionViewList)
         dataSource.apply(snapShot, animatingDifferences: true)
     }
 }
 
 // MARK: Delegate
-extension TableViewController: UITableViewDelegate {}
+extension TableViewController: UITableViewDelegate {
+    // set headers
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = .white
+        let label = UILabel()
+        label.text = sections[section].headerTitle
+        view.addSubview(label)
+        label.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().inset(20)
+        }
+        return view
+    }
+}
