@@ -115,4 +115,5 @@ extension CollectionViewListViewController {
         return snapshot
     }
 }
+
 extension CollectionViewListViewController: UICollectionViewDelegate { }
