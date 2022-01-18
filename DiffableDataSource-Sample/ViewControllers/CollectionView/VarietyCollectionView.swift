@@ -30,12 +30,32 @@ final class VarietyCollectionViewController: UIViewController {
     }
 }
 
-// MARK: DataSource
+// MARK: Layout
 extension VarietyCollectionViewController {
     private func configureCollectionView() {
-
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        collectionView.delegate = self
     }
 
+    private func createLayout() -> UICollectionViewCompositionalLayout {
+        let sectionProvider = { (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+            var section: NSCollectionLayoutSection!
+            return section
+        }
+
+        return UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
+    }
+}
+
+// MARK: DataSource
+extension VarietyCollectionViewController {
     private func configureDataSource() {
 
     }
