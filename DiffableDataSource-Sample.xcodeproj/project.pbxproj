@@ -15,6 +15,7 @@
 		19A3D99B275CABD0007DBD4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19A3D999275CABD0007DBD4A /* LaunchScreen.storyboard */; };
 		19E416AF2764A9CA00DA4526 /* CollectionViewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E416AE2764A9CA00DA4526 /* CollectionViewListViewController.swift */; };
 		19FD225B2795DA3400C4A5A4 /* AccordionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD225A2795DA3400C4A5A4 /* AccordionTableView.swift */; };
+		19FD225E2797203D00C4A5A4 /* VarietyCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD225D2797203C00C4A5A4 /* VarietyCollectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		19A3D99C275CABD0007DBD4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		19E416AE2764A9CA00DA4526 /* CollectionViewListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewListViewController.swift; sourceTree = "<group>"; };
 		19FD225A2795DA3400C4A5A4 /* AccordionTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccordionTableView.swift; sourceTree = "<group>"; };
+		19FD225D2797203C00C4A5A4 /* VarietyCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VarietyCollectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +47,7 @@
 			isa = PBXGroup;
 			children = (
 				1935823A275CB8750054DA5E /* TableView */,
+				19FD225C2797200800C4A5A4 /* CollectionView */,
 				19E416AD2764A9A300DA4526 /* CollectionViewList */,
 			);
 			path = ViewControllers;
@@ -94,6 +97,14 @@
 				19E416AE2764A9CA00DA4526 /* CollectionViewListViewController.swift */,
 			);
 			path = CollectionViewList;
+			sourceTree = "<group>";
+		};
+		19FD225C2797200800C4A5A4 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				19FD225D2797203C00C4A5A4 /* VarietyCollectionView.swift */,
+			);
+			path = CollectionView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,6 +188,7 @@
 				19A3D98F275CABCF007DBD4A /* AppDelegate.swift in Sources */,
 				19E416AF2764A9CA00DA4526 /* CollectionViewListViewController.swift in Sources */,
 				19A3D991275CABCF007DBD4A /* SceneDelegate.swift in Sources */,
+				19FD225E2797203D00C4A5A4 /* VarietyCollectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
