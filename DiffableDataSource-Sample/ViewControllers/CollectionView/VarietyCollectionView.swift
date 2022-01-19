@@ -3,12 +3,23 @@ import UIKit
 final class VarietyCollectionViewController: UIViewController {
 
     enum Section: Hashable {
-        case main
+        case title
+        case margin
+        case list
+        case bottom
     }
 
-    struct Item: Hashable {
-        let title: String
-        let subItem: [Item]
+    enum Item: Hashable {
+        case title
+        case margin
+        case list(ListItem)
+        case bottom
+    }
+
+    struct ListItem: Hashable {
+        var uuid = UUID()
+        var title: String
+        var list: [ListItem]
     }
 
     init() {
@@ -42,6 +53,11 @@ extension VarietyCollectionViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         collectionView.delegate = self
+
+        collectionView.register(TitleCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: TitleCollectionViewCell.self))
+        collectionView.register(MarginCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: MarginCollectionViewCell.self))
+        collectionView.register(ListCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ListCollectionViewCell.self))
+        collectionView.register(BottomCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: BottomCollectionViewCell.self))
     }
 
     private func createLayout() -> UICollectionViewCompositionalLayout {
@@ -57,7 +73,23 @@ extension VarietyCollectionViewController {
 // MARK: DataSource
 extension VarietyCollectionViewController {
     private func configureDataSource() {
-
+        dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView) { collectionView, indexPath, item in
+            switch item {
+            case .title:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier:  String(describing: TitleCollectionViewCell.self), for: indexPath) as! TitleCollectionViewCell
+                return cell
+            case .margin:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: MarginCollectionViewCell.self), for: indexPath) as! MarginCollectionViewCell
+                return cell
+            case let .list(listItem):
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ListCollectionViewCell.self), for: indexPath) as! ListCollectionViewCell
+                cell.titleLabel.text = listItem.title
+                return cell
+            case .bottom:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: BottomCollectionViewCell.self), for: indexPath) as! BottomCollectionViewCell
+                return cell
+            }
+        }
     }
 
     private func updateUI() {

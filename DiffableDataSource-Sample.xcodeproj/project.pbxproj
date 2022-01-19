@@ -16,6 +16,10 @@
 		19E416AF2764A9CA00DA4526 /* CollectionViewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E416AE2764A9CA00DA4526 /* CollectionViewListViewController.swift */; };
 		19FD225B2795DA3400C4A5A4 /* AccordionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD225A2795DA3400C4A5A4 /* AccordionTableView.swift */; };
 		19FD225E2797203D00C4A5A4 /* VarietyCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD225D2797203C00C4A5A4 /* VarietyCollectionView.swift */; };
+		19FD22612798058300C4A5A4 /* MarginCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD22602798058300C4A5A4 /* MarginCollectionViewCell.swift */; };
+		19FD2263279805F800C4A5A4 /* TitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD2262279805F800C4A5A4 /* TitleCollectionViewCell.swift */; };
+		19FD22652798061600C4A5A4 /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD22642798061600C4A5A4 /* ListCollectionViewCell.swift */; };
+		19FD22672798066000C4A5A4 /* BottomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD22662798066000C4A5A4 /* BottomCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +33,10 @@
 		19E416AE2764A9CA00DA4526 /* CollectionViewListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewListViewController.swift; sourceTree = "<group>"; };
 		19FD225A2795DA3400C4A5A4 /* AccordionTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccordionTableView.swift; sourceTree = "<group>"; };
 		19FD225D2797203C00C4A5A4 /* VarietyCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VarietyCollectionView.swift; sourceTree = "<group>"; };
+		19FD22602798058300C4A5A4 /* MarginCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarginCollectionViewCell.swift; sourceTree = "<group>"; };
+		19FD2262279805F800C4A5A4 /* TitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCollectionViewCell.swift; sourceTree = "<group>"; };
+		19FD22642798061600C4A5A4 /* ListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewCell.swift; sourceTree = "<group>"; };
+		19FD22662798066000C4A5A4 /* BottomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +95,7 @@
 				19A3D98E275CABCF007DBD4A /* AppDelegate.swift */,
 				19A3D990275CABCF007DBD4A /* SceneDelegate.swift */,
 				19358239275CB4FA0054DA5E /* ViewControllers */,
+				19FD225F2798055100C4A5A4 /* Cells */,
 			);
 			path = "DiffableDataSource-Sample";
 			sourceTree = "<group>";
@@ -105,6 +114,17 @@
 				19FD225D2797203C00C4A5A4 /* VarietyCollectionView.swift */,
 			);
 			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		19FD225F2798055100C4A5A4 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				19FD2262279805F800C4A5A4 /* TitleCollectionViewCell.swift */,
+				19FD22602798058300C4A5A4 /* MarginCollectionViewCell.swift */,
+				19FD22642798061600C4A5A4 /* ListCollectionViewCell.swift */,
+				19FD22662798066000C4A5A4 /* BottomCollectionViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,11 +203,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19FD22652798061600C4A5A4 /* ListCollectionViewCell.swift in Sources */,
+				19FD22672798066000C4A5A4 /* BottomCollectionViewCell.swift in Sources */,
 				19A3D993275CABCF007DBD4A /* TableViewController.swift in Sources */,
+				19FD2263279805F800C4A5A4 /* TitleCollectionViewCell.swift in Sources */,
 				19FD225B2795DA3400C4A5A4 /* AccordionTableView.swift in Sources */,
 				19A3D98F275CABCF007DBD4A /* AppDelegate.swift in Sources */,
 				19E416AF2764A9CA00DA4526 /* CollectionViewListViewController.swift in Sources */,
 				19A3D991275CABCF007DBD4A /* SceneDelegate.swift in Sources */,
+				19FD22612798058300C4A5A4 /* MarginCollectionViewCell.swift in Sources */,
 				19FD225E2797203D00C4A5A4 /* VarietyCollectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
