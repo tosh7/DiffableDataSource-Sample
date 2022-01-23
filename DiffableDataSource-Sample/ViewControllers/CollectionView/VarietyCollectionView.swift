@@ -19,7 +19,7 @@ final class VarietyCollectionViewController: UIViewController {
     struct ListItem: Hashable {
         var uuid = UUID()
         var title: String
-        var list: [ListItem]
+//        var list: [ListItem]
     }
 
     init() {
@@ -37,7 +37,15 @@ final class VarietyCollectionViewController: UIViewController {
 
         configureCollectionView()
         configureDataSource()
-        updateUI()
+        updateUI(str: "Hoge")
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+            self.updateUI(str: "huga")
+        })
     }
 }
 
@@ -46,6 +54,7 @@ extension VarietyCollectionViewController {
     private func configureCollectionView() {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(collectionView)
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -68,19 +77,19 @@ extension VarietyCollectionViewController {
             case .title:
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.28), heightDimension: .fractionalWidth(0.2))
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(0.2))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                 section = NSCollectionLayoutSection(group: group)
             case .margin:
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.28), heightDimension: .fractionalWidth(0.2))
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(0.2))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                 section = NSCollectionLayoutSection(group: group)
             case .list:
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.28), heightDimension: .fractionalWidth(0.2))
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(0.2))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                 section = NSCollectionLayoutSection(group: group)
                 section.interGroupSpacing = 10
@@ -89,7 +98,7 @@ extension VarietyCollectionViewController {
             case .bottom:
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.28), heightDimension: .fractionalWidth(0.2))
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(0.2))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                 section = NSCollectionLayoutSection(group: group)
             }
@@ -122,8 +131,19 @@ extension VarietyCollectionViewController {
         }
     }
 
-    private func updateUI() {
+    private func updateUI(str: String) {
+        var snapShot = NSDiffableDataSourceSnapshot<Section, Item>()
+        if str == "Hoge" {
+            snapShot.appendSections([.title, .list, .margin, .bottom])
+        } else {
+            snapShot.appendSections([.title, .margin, .list, .bottom])
+        }
 
+        snapShot.appendItems([.title], toSection: .title)
+        snapShot.appendItems([.list(ListItem(title: str))], toSection: .list)
+        snapShot.appendItems([.margin], toSection: .margin)
+        snapShot.appendItems([.bottom], toSection: .bottom)
+        dataSource.apply(snapShot, animatingDifferences: true)
     }
 }
 
