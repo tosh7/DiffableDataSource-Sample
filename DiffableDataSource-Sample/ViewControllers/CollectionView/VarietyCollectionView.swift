@@ -22,17 +22,18 @@ final class VarietyCollectionViewController: UIViewController {
     }
 
     struct ListItem: Hashable {
-        var uuid = UUID()
+        private let uuid = UUID()
         var title: String
-//        var list: [ListItem]
+        var list: [ListItem]
+
+        init(title: String, list: [ListItem]) {
+            self.title = title
+            self.list = list
+        }
     }
 
     init() {
         super.init(nibName: nil, bundle: nil)
-    }
-
-    deinit {
-        timer.invalidate()
     }
 
     required init?(coder: NSCoder) { fatalError() }
@@ -40,12 +41,12 @@ final class VarietyCollectionViewController: UIViewController {
     private var collectionView: UICollectionView!
     private var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
     private var currentSnapshot: NSDiffableDataSourceSnapshot<Section, Item>!
-    private var timer: Timer!
     private var items: [Item] = [] {
         didSet {
             updateUI()
         }
     }
+    private var isAccordionAppear: Bool = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +63,11 @@ final class VarietyCollectionViewController: UIViewController {
             self.items = [
                 .title(TitleItem(title: "Note", subTitle: "That")),
                 .margin,
-                .list(ListItem(title: "This is list area.")),
+                .list(ListItem(title: "This is list area.", list: [
+                    ListItem(title: "one", list: []),
+                    ListItem(title: "two", list: []),
+                    ListItem(title: "three", list: [])
+                ])),
                 .bottom
             ]
         })
@@ -107,12 +112,11 @@ extension VarietyCollectionViewController {
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                 section = NSCollectionLayoutSection(group: group)
             case .list:
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.5))
+                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(0.2))
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(0.1))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                 section = NSCollectionLayoutSection(group: group)
-                section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
             case .bottom:
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -162,7 +166,7 @@ extension VarietyCollectionViewController {
                 snapShot.appendItems([.margin], toSection: .margin)
             case let .list(listItem):
                 snapShot.appendSections([.list])
-                snapShot.appendItems([.list(listItem)], toSection: .list)
+                snapShot.appendItems(listItem.list.map { .list($0) }, toSection: .list)
             case .bottom:
                 snapShot.appendSections([.bottom])
                 snapShot.appendItems([.bottom], toSection: .bottom)
@@ -174,4 +178,23 @@ extension VarietyCollectionViewController {
 }
 
 // MARK: Delegate
-extension VarietyCollectionViewController: UICollectionViewDelegate {}
+extension VarietyCollectionViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        items = isAccordionAppear ? [
+            .title(TitleItem(title: "Note", subTitle: "That")),
+            .margin,
+            .list(ListItem(title: "This is list area.", list: [])),
+            .bottom
+        ] : [
+            .title(TitleItem(title: "Note", subTitle: "That")),
+            .margin,
+            .list(ListItem(title: "This is list area.", list: [
+                ListItem(title: "one", list: []),
+                ListItem(title: "two", list: []),
+                ListItem(title: "three", list: [])
+            ])),
+            .bottom
+        ]
+        isAccordionAppear.toggle()
+    }
+}
