@@ -26,11 +26,16 @@ final class VarietyCollectionViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    deinit {
+        timer.invalidate()
+    }
+
     required init?(coder: NSCoder) { fatalError() }
 
     private var collectionView: UICollectionView!
     private var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
     private var currentSnapshot: NSDiffableDataSourceSnapshot<Section, Item>!
+    private var timer: Timer!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,14 +43,12 @@ final class VarietyCollectionViewController: UIViewController {
         configureCollectionView()
         configureDataSource()
         updateUI(str: "Hoge")
+
+        timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
-            self.updateUI(str: "huga")
-        })
+    @objc private func updateTimer() {
+        updateUI(str: String(arc4random()))
     }
 }
 
@@ -134,13 +137,13 @@ extension VarietyCollectionViewController {
     private func updateUI(str: String) {
         var snapShot = NSDiffableDataSourceSnapshot<Section, Item>()
         if str == "Hoge" {
-            snapShot.appendSections([.title, .list, .margin, .bottom])
+            snapShot.appendSections([.title, .margin, .bottom])
         } else {
-            snapShot.appendSections([.title, .margin, .list, .bottom])
+            snapShot.appendSections([.title, .list, .margin, .bottom])
+            snapShot.appendItems([.list(ListItem(title: str))], toSection: .list)
         }
 
         snapShot.appendItems([.title], toSection: .title)
-        snapShot.appendItems([.list(ListItem(title: str))], toSection: .list)
         snapShot.appendItems([.margin], toSection: .margin)
         snapShot.appendItems([.bottom], toSection: .bottom)
         dataSource.apply(snapShot, animatingDifferences: true)
