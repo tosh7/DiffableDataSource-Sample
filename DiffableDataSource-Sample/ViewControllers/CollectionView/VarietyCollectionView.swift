@@ -10,10 +10,15 @@ final class VarietyCollectionViewController: UIViewController {
     }
 
     enum Item: Hashable {
-        case title
+        case title(TitleItem)
         case margin
         case list(ListItem)
         case bottom
+    }
+
+    struct TitleItem: Hashable {
+        var title: String
+        var subTitle: String
     }
 
     struct ListItem: Hashable {
@@ -36,19 +41,31 @@ final class VarietyCollectionViewController: UIViewController {
     private var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
     private var currentSnapshot: NSDiffableDataSourceSnapshot<Section, Item>!
     private var timer: Timer!
+    private var items: [Item] = [] {
+        didSet {
+            updateUI()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureCollectionView()
         configureDataSource()
-        updateUI(str: "Hoge")
+        updateUI()
 
-        timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        getApiData()
     }
 
-    @objc private func updateTimer() {
-        updateUI(str: String(arc4random()))
+    private func getApiData() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+            self.items = [
+                .title(TitleItem(title: "Note", subTitle: "That")),
+                .margin,
+                .list(ListItem(title: "This is list area.")),
+                .bottom
+            ]
+        })
     }
 }
 
@@ -132,18 +149,26 @@ extension VarietyCollectionViewController {
         }
     }
 
-    private func updateUI(str: String) {
+    private func updateUI() {
         var snapShot = NSDiffableDataSourceSnapshot<Section, Item>()
-        if str == "Hoge" {
-            snapShot.appendSections([.title, .margin, .bottom])
-        } else {
-            snapShot.appendSections([.title, .list, .margin, .bottom])
-            snapShot.appendItems([.list(ListItem(title: str)), .list(ListItem(title: "Huga"))], toSection: .list)
+
+        items.forEach {
+            switch $0 {
+            case let .title(titleItem):
+                snapShot.appendSections([.title])
+                snapShot.appendItems([.title(titleItem)], toSection: .title)
+            case .margin:
+                snapShot.appendSections([.margin])
+                snapShot.appendItems([.margin], toSection: .margin)
+            case let .list(listItem):
+                snapShot.appendSections([.list])
+                snapShot.appendItems([.list(listItem)], toSection: .list)
+            case .bottom:
+                snapShot.appendSections([.bottom])
+                snapShot.appendItems([.bottom], toSection: .bottom)
+            }
         }
 
-        snapShot.appendItems([.title], toSection: .title)
-        snapShot.appendItems([.margin], toSection: .margin)
-        snapShot.appendItems([.bottom], toSection: .bottom)
         dataSource.apply(snapShot, animatingDifferences: true)
     }
 }
