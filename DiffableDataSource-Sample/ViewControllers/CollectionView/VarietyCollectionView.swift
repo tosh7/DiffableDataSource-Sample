@@ -90,13 +90,11 @@ extension VarietyCollectionViewController {
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                 section = NSCollectionLayoutSection(group: group)
             case .list:
-                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.5))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(0.2))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                 section = NSCollectionLayoutSection(group: group)
-                section.interGroupSpacing = 10
-                section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
                 section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
             case .bottom:
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
@@ -140,7 +138,7 @@ extension VarietyCollectionViewController {
             snapShot.appendSections([.title, .margin, .bottom])
         } else {
             snapShot.appendSections([.title, .list, .margin, .bottom])
-            snapShot.appendItems([.list(ListItem(title: str))], toSection: .list)
+            snapShot.appendItems([.list(ListItem(title: str)), .list(ListItem(title: "Huga"))], toSection: .list)
         }
 
         snapShot.appendItems([.title], toSection: .title)
